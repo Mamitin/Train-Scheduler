@@ -20,10 +20,33 @@ var database = firebase.database();
 
 // Initial variables
 var name = "";
-var Destination = "";
-var Frequency = "";
+var destination = "";
+var frequency = "";
 var arrival = "";
 var minutes = "";
+
+//Capure button click
+$("#add-train-btn").on("click", function(event) {
+  event.preventDefault();
+  console.log("test");
+
+  //Grab values from text boxes
+  name = $("#train-name-input").val().trim();
+  name = $("#destination-input").val().trim();
+  name = $("#frequency-input").val().trim();
+
+  //Code for handling push
+  database.ref().push({
+    name: name,
+    destination: destination,
+    frequency: frequency,
+    arrival: arrival,
+    minutes: minutes,
+    dateAdded: firebase.database.ServerValue.TIMESTAMP
+  });
+});
+
+
 
 
 
@@ -35,8 +58,7 @@ var minutes = "";
         console.log(snapshot.val());
 
 
-//create the variables
-//
+
 //moment.js to calculate the time
   
         // Log the value of the various properties
