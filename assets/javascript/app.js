@@ -18,12 +18,26 @@ var firebaseConfig = {
 //Establish connection to database
 var database = firebase.database();
 
+// Initial variables
+var name = "";
+var Destination = "";
+var Frequency = "";
+var arrival = "";
+var minutes = "";
+
+
+
 // Firebase is always watching for changes to the data.
     // When changes occurs it will print them to console and html
     database.ref().on("value", function(snapshot) {
 
         // Print the initial data to the console.
         console.log(snapshot.val());
+
+
+//create the variables
+//
+//moment.js to calculate the time
   
         // Log the value of the various properties
       /*  console.log(snapshot.val().Name);
