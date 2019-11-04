@@ -1,7 +1,3 @@
-
-
-
-
 // Your web app's Firebase configuration
 var firebaseConfig = {
   apiKey: "AIzaSyBxVsAk9KgE2-Wb7Eu4M4ORUKvmA3QDZAs",
@@ -37,6 +33,7 @@ $("#add-train-btn").on("click", function (event) {
   //Grab values from text boxes
   name = $("#train-name-input").val().trim();
   destination = $("#destination-input").val().trim();
+  firstTrain = $("#first-train-input").val().trim();
   frequency = $("#frequency-input").val().trim();
 
   //Code for handling push
@@ -63,9 +60,8 @@ database.ref().on("child_added", function (childSnapshot) {
   // Print the data to the console.
   console.log(childSnapshot.val().name);
   console.log(childSnapshot.val().destination);
+  console.log(childSnapshot.val().firstTrain);
   console.log(childSnapshot.val().frequency);
-  console.log(childSnapshot.val().arrival);
-  console.log(childSnapshot.val().minutes);
 
 
   var tableRow = $("<tr>")
@@ -81,3 +77,38 @@ database.ref().on("child_added", function (childSnapshot) {
 }, function (errorObject) {
   console.log("The read failed: " + errorObject.code);
 });
+  
+
+function trainTime(tFrequency, firstTime) {
+// First time
+var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+console.log(firstTimeConverted);
+
+// Current time
+var currentTime = moment();
+console.log("current time: " + moment(currentTime).format("hh:mm"));
+
+// Diference between times
+var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+console.log("difference in time: " + diffTime);
+
+//Time apart
+var tRemainder = diffTime % tFrequency;
+console.log(tRemainder);
+
+//Minute until train
+var tMinutesTillTrain = tFrequency - tRemainder;
+console.log("minutes till train " + tMinutesTillTrain);
+
+//Next train
+var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+console.log("arrival time " + moment(nextTrain).format("hh:mm"));
+
+return [tMinutesTillTrain, nextTrain];
+
+}
+
+console.log(trainTime(5, "03:30"));
+
+
+
