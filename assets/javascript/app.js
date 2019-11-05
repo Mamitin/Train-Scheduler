@@ -33,7 +33,7 @@ $("#add-train-btn").on("click", function (event) {
   //Grab values from text boxes
   name = $("#train-name-input").val().trim();
   destination = $("#destination-input").val().trim();
-  firstTrain = $("#next-arrival-input").val().trim();
+  firstTrain = $("#first-train-input").val().trim();
   frequency = $("#frequency-input").val().trim();
 
   //Code for handling push
@@ -54,8 +54,8 @@ database.ref().on("child_added", function (childSnapshot) {
   count++
   console.log("Count: " + count);
 
-  var frequency = 0;
-  var minutes = 0;
+  var frequency = "";
+  var minutes = "";
 
   // Print the data to the console.
   console.log(childSnapshot.val().name);
