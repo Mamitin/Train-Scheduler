@@ -79,17 +79,17 @@ database.ref().on("child_added", function (childSnapshot) {
 });
   
 
-function trainTime(tFrequency, firstTime) {
+function trainTime(tFrequency, firstTrain) {
 // First time
-var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
-console.log(firstTimeConverted);
+var firstTrainConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
+console.log(firstTrainConverted);
 
 // Current time
 var currentTime = moment();
 console.log("current time: " + moment(currentTime).format("hh:mm"));
 
 // Diference between times
-var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+var diffTime = moment().diff(moment(firstTrainConverted), "minutes");
 console.log("difference in time: " + diffTime);
 
 //Time apart
