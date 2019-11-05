@@ -42,6 +42,7 @@ $("#add-train-btn").on("click", function (event) {
     destination: destination,
     firstTrain: firstTrain,
     frequency: frequency,
+    minutes: minutes,
     //dateAdded: firebase.database.ServerValue.TIMESTAMP
   });
 });
@@ -67,8 +68,9 @@ database.ref().on("child_added", function (childSnapshot) {
   var tableRow = $("<tr>")
   tableRow.append($("<td>").text(childSnapshot.val().name));
   tableRow.append($("<td>").text(childSnapshot.val().destination));
-  tableRow.append($("<td>").text(childSnapshot.val().firstTrain));
   tableRow.append($("<td>").text(childSnapshot.val().frequency));
+  tableRow.append($("<td>").text(childSnapshot.val().firstTrain));
+  tableRow.append($("<td>").text(childSnapshot.val().minutes));
 
 
   $("#trainList").append(tableRow);
@@ -79,7 +81,7 @@ database.ref().on("child_added", function (childSnapshot) {
 });
 
 
-function trainTime(tFrequency, firstTrain) {
+function trainTime(frequency, firstTrain) {
   // First time
   var firstTrainConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
   console.log(firstTrainConverted);
@@ -93,11 +95,11 @@ function trainTime(tFrequency, firstTrain) {
   console.log("difference in time: " + diffTime);
 
   //Time apart
-  var tRemainder = diffTime % tFrequency;
+  var tRemainder = diffTime % frequency;
   console.log(tRemainder);
 
   //Minute until train
-  var tMinutesTillTrain = tFrequency - tRemainder;
+  var tMinutesTillTrain = frequency - tRemainder;
   console.log("minutes till train " + tMinutesTillTrain);
 
   //Next train
