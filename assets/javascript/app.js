@@ -27,7 +27,8 @@ var minutes = "";
 //Capture button click
 $("#add-train-btn").on("click", function (event) {
   event.preventDefault();
-  console.log("test");
+  //  if (name.val().length === 0 || destination.val().length === 0 || firstTrain.val().length === 0 || frequency.val().length === 0) {
+  // alert("You must fill our all required fields");
 
   //Grab values from text boxes
   name = $("#train-name-input").val().trim();
@@ -65,15 +66,15 @@ database.ref().on("child_added", function (childSnapshot) {
   tableRow.append($("<td>").text(childSnapshot.val().frequency));
   //trainTime( );
   minutes = trainTime(childSnapshot.val().frequency, childSnapshot.val().first);
-  
+
   //Next train
   var nextTrain = moment().add(minutes, "minutes").format("hh:mm A");
   //console.log("arrival time " + moment(nextTrain).format("hh:mm"));
-  
+
   tableRow.append($("<td>").text(nextTrain));
   tableRow.append($("<td>").text(minutes));
 
-  
+
   $("#trainList").append(tableRow);
 
   // If any errors are experienced, log them to console.
@@ -107,5 +108,14 @@ function trainTime(tFrequency, firstTime) {
   return tMinutesTillTrain;
 
 };
+
+function validateForm() {
+  var x = document.forms["form-group"]
+  ["#train-input-name"].value;
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+}
 
 
