@@ -27,8 +27,6 @@ var minutes = "";
 //Capture button click
 $("#add-train-btn").on("click", function (event) {
   event.preventDefault();
-  //  if (name.val().length === 0 || destination.val().length === 0 || firstTrain.val().length === 0 || frequency.val().length === 0) {
-  // alert("You must fill our all required fields");
 
   //Grab values from text boxes
   name = $("#train-name-input").val().trim();
@@ -36,86 +34,90 @@ $("#add-train-btn").on("click", function (event) {
   firstTrain = $("#first-train-input").val().trim();
   frequency = $("#frequency-input").val().trim();
 
-  //Code for handling push
-  database.ref().push({
-    name: name,
-    destination: destination,
-    first: firstTrain,
-    frequency: frequency,
+     /* if (name.val().length === "" || destination.val().length === "" || firstTrain.val().length === "" || frequency.val().length === "") {
+       alert("You must fill out all required fields");
+      } else {*/
+      //Code for handling push
+        database.ref().push({
+        name: name,
+        destination: destination,
+        first: firstTrain,
+        frequency: frequency,
+    });
   });
-});
-
-var count = 0;
-
-// Firebase is always watching for changes to the data.
-// When changes occurs it will print them to console and html
-database.ref().on("child_added", function (childSnapshot) {
-  count++
-  console.log("Count: " + count);
-
-  // Print the data to the console.
-  console.log(childSnapshot.val().name);
-  console.log(childSnapshot.val().destination);
-  console.log(childSnapshot.val().first);
-  console.log(childSnapshot.val().frequency);
-  //console.log(childSnapshot.val().tMinutesTillTrain);
-
-  var tableRow = $("<tr>")
-  tableRow.append($("<td>").text(childSnapshot.val().name));
-  tableRow.append($("<td>").text(childSnapshot.val().destination));
-  tableRow.append($("<td>").text(childSnapshot.val().frequency));
-  //trainTime( );
-  minutes = trainTime(childSnapshot.val().frequency, childSnapshot.val().first);
-
-  //Next train
-  var nextTrain = moment().add(minutes, "minutes").format("hh:mm A");
-  //console.log("arrival time " + moment(nextTrain).format("hh:mm"));
-
-  tableRow.append($("<td>").text(nextTrain));
-  tableRow.append($("<td>").text(minutes));
 
 
-  $("#trainList").append(tableRow);
+  var count = 0;
 
-  // If any errors are experienced, log them to console.
-}, function (errorObject) {
-  console.log("The read failed: " + errorObject.code);
-});
+  // Firebase is always watching for changes to the data.
+  // When changes occurs it will print them to console and html
+  database.ref().on("child_added", function (childSnapshot) {
+    count++
+    console.log("Count: " + count);
+
+    // Print the data to the console.
+    console.log(childSnapshot.val().name);
+    console.log(childSnapshot.val().destination);
+    console.log(childSnapshot.val().first);
+    console.log(childSnapshot.val().frequency);
+    //console.log(childSnapshot.val().tMinutesTillTrain);
+
+    var tableRow = $("<tr>")
+    tableRow.append($("<td>").text(childSnapshot.val().name));
+    tableRow.append($("<td>").text(childSnapshot.val().destination));
+    tableRow.append($("<td>").text(childSnapshot.val().frequency));
+    //trainTime( );
+    minutes = trainTime(childSnapshot.val().frequency, childSnapshot.val().first);
+
+    //Next train
+    var nextTrain = moment().add(minutes, "minutes").format("hh:mm A");
+    //console.log("arrival time " + moment(nextTrain).format("hh:mm"));
+
+    tableRow.append($("<td>").text(nextTrain));
+    tableRow.append($("<td>").text(minutes));
 
 
-function trainTime(tFrequency, firstTime) {
-  // First time
-  var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
-  console.log(firstTimeConverted);
+    $("#trainList").append(tableRow);
 
-  // Current time
-  var currentTime = moment();
-  console.log("current time: " + moment(currentTime).format("hh:mm"));
-
-  // Diference between times
-  var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-  console.log("difference in time: " + diffTime);
-
-  //Time apart
-  var tRemainder = diffTime % tFrequency;
-  console.log(tRemainder);
-
-  //Minute until train
-  var tMinutesTillTrain = tFrequency - tRemainder;
-  console.log("minutes till train " + tMinutesTillTrain);
+    // If any errors are experienced, log them to console.
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
 
 
-  return tMinutesTillTrain;
+  function trainTime(tFrequency, firstTime) {
+    // First time
+    var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+    console.log(firstTimeConverted);
 
-};
+    // Current time
+    var currentTime = moment();
+    console.log("current time: " + moment(currentTime).format("hh:mm"));
 
-function validateForm() {
-  var x = document.forms["form-group"]
-  ["#train-input-name"].value;
-  if (x == "") {
-    alert("Name must be filled out");
-    return false;
+    // Diference between times
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    console.log("difference in time: " + diffTime);
+
+    //Time apart
+    var tRemainder = diffTime % tFrequency;
+    console.log(tRemainder);
+
+    //Minute until train
+    var tMinutesTillTrain = tFrequency - tRemainder;
+    console.log("minutes till train " + tMinutesTillTrain);
+
+
+    return tMinutesTillTrain;
+
+  };
+
+  function validateForm() {
+    var x = document.forms["form-group"]
+    ["#train-input-name"].value;
+    if (x == "") {
+      alert("Name must be filled out");
+      return false;
+    }
   }
-}
 
 
