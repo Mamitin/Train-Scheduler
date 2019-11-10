@@ -31,7 +31,9 @@ $("#add-train-btn").on("click", function (event) {
 
  var inputsValid = true;
   for (i = 0; i < $(".form-control").length; i++) {
-    } if (inputsValid) {
+      inputsValid =$(".form-control")[i].reportValidity() && inputsValid;
+    } 
+    if (inputsValid) {
       //Grab values from text boxes
       name = $("#train-name-input").val().trim();
       destination = $("#destination-input").val().trim();
