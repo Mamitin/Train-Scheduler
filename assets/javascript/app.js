@@ -20,20 +20,24 @@ var database = firebase.database();
 // Initial variables
 var name = "";
 var destination = "";
+var firstTrain = "";
 var frequency = "";
-var arrival = "";
-var minutes = "";
+//var arrival = "";
+//var minutes = "";
 
 //Capture button click
 $("#add-train-btn").on("click", function (event) {
   event.preventDefault();
 
-  if ($(".form-control")[0].reportValidity()) {
-    //Grab values from text boxes
-    name = $("#train-name-input").val().trim();
-    destination = $("#destination-input").val().trim();
-    firstTrain = $("#first-train-input").val().trim();
-    frequency = $("#frequency-input").val().trim();
+ var inputsValid = true;
+  for (i = 0; i < $(".form-control").length; i++) {
+    } if (inputsValid) {
+      //Grab values from text boxes
+      name = $("#train-name-input").val().trim();
+      destination = $("#destination-input").val().trim();
+      firstTrain = $("#first-train-input").val().trim();
+      frequency = $("#frequency-input").val().trim();
+    }
 
     //Code for handling push
     database.ref().push({
@@ -47,8 +51,7 @@ $("#add-train-btn").on("click", function (event) {
     $("#destination-input").val("");
     $("#first-train-input").val("");
     $("#frequency-input").val("");
-  };
-});
+  });
 
 
 var count = 0;
@@ -57,20 +60,11 @@ var count = 0;
 // When changes occurs it will print them to console and html
 database.ref().on("child_added", function (childSnapshot) {
   count++
-  console.log("Count: " + count);
-
-  // Print the data to the console.
-  console.log(childSnapshot.val().name);
-  console.log(childSnapshot.val().destination);
-  console.log(childSnapshot.val().first);
-  console.log(childSnapshot.val().frequency);
-  //console.log(childSnapshot.val().tMinutesTillTrain);
 
   var tableRow = $("<tr>")
   tableRow.append($("<td>").text(childSnapshot.val().name));
   tableRow.append($("<td>").text(childSnapshot.val().destination));
   tableRow.append($("<td>").text(childSnapshot.val().frequency));
-  //trainTime( );
   minutes = trainTime(childSnapshot.val().frequency, childSnapshot.val().first);
 
   //Next train
