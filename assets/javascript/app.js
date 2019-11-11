@@ -29,17 +29,13 @@ var frequency = "";
 $("#add-train-btn").on("click", function (event) {
   event.preventDefault();
 
- var inputsValid = true;
-  for (i = 0; i < $(".form-control").length; i++) {
-      inputsValid =$(".form-control")[i].reportValidity() && inputsValid;
-    } 
-    if (inputsValid) {
-      //Grab values from text boxes
-      name = $("#train-name-input").val().trim();
-      destination = $("#destination-input").val().trim();
-      firstTrain = $("#first-train-input").val().trim();
-      frequency = $("#frequency-input").val().trim();
-    }
+  if ($("#form-input")[0].reportValidity()) {
+    //Grab values from text boxes
+    name = $("#train-name-input").val().trim();
+    destination = $("#destination-input").val().trim();
+    firstTrain = $("#first-train-input").val().trim();
+    frequency = $("#frequency-input").val().trim();
+
 
     //Code for handling push
     database.ref().push({
@@ -48,12 +44,14 @@ $("#add-train-btn").on("click", function (event) {
       first: firstTrain,
       frequency: frequency,
     });
+  
 
-    $("#train-name-input").val("");
-    $("#destination-input").val("");
-    $("#first-train-input").val("");
-    $("#frequency-input").val("");
-  });
+  $("#train-name-input").val("");
+  $("#destination-input").val("");
+  $("#first-train-input").val("");
+  $("#frequency-input").val("");
+}
+});
 
 
 var count = 0;

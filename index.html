@@ -53,22 +53,22 @@
                 <div class="card mb-4">
                     <div class="card-header">Add a Train</div>
                     <div class="card-body">
-                        <form>
+                        <form id="form-input">
                             <div class="form-group">
                                 <label for="train-name-input">Train Name</label>
-                                <input class="form-control" id="train-name-input" type="text" required pattern="(.|\s)*\S(.|\s)*">
+                                <input class="form-control" id="train-name-input" type="text" required>
                             </div>
                             <div class="form-group">
                                 <label for="destination-input">Destination</label>
-                                <input class="form-control" id="destination-input" type="text" required pattern="(.|\s)*\S(.|\s)*">
+                                <input class="form-control" id="destination-input" type="text" required >
                             </div>
                             <div class="form-group">
                                 <label for="first-train-input">First Train Time (HH:mm - military time)</label >
-                                <input class="form-control" id="first-train-input" type="text"required patter="(.|\s)*\S(.|\s)*">
+                                <input class="form-control" id="first-train-input" type="text"required >
                             </div>
                             <div class="form-group">
                                 <label for="frequency-input">Frequency (min)</label>
-                                <input class="form-control" id="frequency-input" type="text" required pattern="(.|\s)*\S(.|\s)*">
+                                <input class="form-control" id="frequency-input" type="text" required>
                             </div>
                             
                             <button class="btn btn-primary float right" id="add-train-btn">Submit</button>
