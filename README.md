@@ -18,12 +18,12 @@
 - Train info is stored using FireBase
 
 ## Game in action:
-<img src="/assets/images/train.gif" width="500px" height="250px"/>
+<img src="../images/train.gif" width="500px" height="250px"/>
 
 ## Important code snippit:
 This particular code shows the usage of Firebase.
 
-<img src="assets/images/capture.png>
+<img src="../images/capture.png>
 
 ## Currently working with:
 - Html
