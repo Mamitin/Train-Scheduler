@@ -22,13 +22,12 @@ var name = "";
 var destination = "";
 var firstTrain = "";
 var frequency = "";
-//var arrival = "";
-//var minutes = "";
 
 //Capture button click
 $("#add-train-btn").on("click", function (event) {
   event.preventDefault();
 
+  //Validation to force user to fill out all fields
   if ($("#form-input")[0].reportValidity()) {
     //Grab values from text boxes
     name = $("#train-name-input").val().trim();
