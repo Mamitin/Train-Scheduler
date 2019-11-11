@@ -7,8 +7,6 @@
 }
 
 body {
-    /*background-color: black;*/
-   /* background: rgba(11, 11, 41, 0.7);*/
     background: url(../images/photo.jpg);
     background-size: cover;
     background-repeat: no-repeat;
